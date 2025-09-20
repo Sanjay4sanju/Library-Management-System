@@ -10,6 +10,11 @@ __pycache__/
 *.pyd
 db.sqlite3
 .env
+# Python Virtual Environment
+venv/
+venv*/
+backend/venv312/
+
 
 # VSCode/IDE
 .vscode/
@@ -18,4 +23,5 @@ db.sqlite3
 # OS
 .DS_Store
 Thumbs.db
+
 
