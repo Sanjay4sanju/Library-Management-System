@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python (Django backend)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+.env
+
+# VSCode/IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
