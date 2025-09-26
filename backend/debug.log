@@ -3990,3 +3990,17 @@ Unauthorized: /api/books/
 C:\Users\johnii\Downloads\library-management-system\backend\lms_api\settings.py changed, reloading.
 C:\Users\johnii\Downloads\library-management-system\backend\lms_api\settings.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Bad Request: /api/auth/logout/
+Unauthorized: /api/auth/logout/
+Bad Request: /api/auth/logout/
+Bad Request: /api/auth/logout/
+Bad Request: /api/auth/logout/
+Bad Request: /api/auth/logout/
+Bad Request: /api/auth/register/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/auth/profile/
