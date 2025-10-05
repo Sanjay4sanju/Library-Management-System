@@ -60,12 +60,6 @@ class BookViewSet(viewsets.ModelViewSet):
             return [permissions.IsAuthenticated(), IsLibrarian()]
         return super().get_permissions()
 
-    def create(self, request, *args, **kwargs):
-        # existing create method here
-        ...
-
-    # ------------------- NEW RESERVE ACTION -------------------
- 
     @action(detail=True, methods=['post'])
     def reserve(self, request, pk=None):
         book = self.get_object()
@@ -91,6 +85,81 @@ class BookViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED
         )
 
+    # ADD THIS BORROW ACTION TO BOOKVIEWSET
+    @action(detail=True, methods=['post'])
+    def borrow(self, request, pk=None):
+        book = self.get_object()
+        user = request.user
+        
+        if book.available_copies <= 0:
+            return Response(
+                {'error': 'No copies available for borrowing.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Check if user already has this book borrowed
+        existing_borrow = BorrowRecord.objects.filter(
+            book=book, 
+            borrower=user, 
+            is_returned=False
+        ).exists()
+        
+        if existing_borrow:
+            return Response(
+                {'error': 'You have already borrowed this book.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Check if user has too many borrowed books
+        max_books = 5  # Maximum books a user can borrow
+        current_borrows = BorrowRecord.objects.filter(
+            borrower=user, 
+            is_returned=False
+        ).count()
+        
+        if current_borrows >= max_books:
+            return Response(
+                {'error': f'You can only borrow {max_books} books at a time.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Check for overdue books
+        overdue_books = BorrowRecord.objects.filter(
+            borrower=user, 
+            is_returned=False,
+            due_date__lt=timezone.now().date()
+        ).exists()
+        
+        if overdue_books:
+            return Response(
+                {'error': 'You have overdue books. Please return them before borrowing new ones.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Create borrow record
+        borrow_record = BorrowRecord.objects.create(
+            book=book,
+            borrower=user,
+            due_date=timezone.now().date() + timedelta(days=14)  # 2 weeks
+        )
+        
+        # Update book availability
+        book.available_copies -= 1
+        book.save()
+        
+        # Check for reservations and update if any
+        reservation = Reservation.objects.filter(
+            book=book, 
+            user=user, 
+            status='pending'
+        ).first()
+        
+        if reservation:
+            reservation.status = 'fulfilled'
+            reservation.save()
+        
+        serializer = BorrowRecordSerializer(borrow_record)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     # ... rest of your BookViewSet code ...
 
     # Add this ViewSet class after the other ViewSets
@@ -101,17 +170,16 @@ class UserViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
-            # Allow any authenticated user to view users (with restrictions in get_queryset)
             return [permissions.IsAuthenticated()]
         return [permissions.IsAuthenticated(), IsLibrarian()]
 
         # Add this to your UserViewSet
-def destroy(self, request, *args, **kwargs):
-    try:
+    def destroy(self, request, *args, **kwargs):
+     try:
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
-    except Exception as e:
+     except Exception as e:
         return Response(
             {'error': str(e)},
             status=status.HTTP_400_BAD_REQUEST
@@ -125,14 +193,26 @@ def destroy(self, request, *args, **kwargs):
         return User.objects.filter(id=user.id)
     
     def create(self, request, *args, **kwargs):
+        print("=== USER CREATE DEBUG ===")
+        print("Request data:", request.data)
+        print("Content type:", request.content_type)
+        
         serializer = self.get_serializer(data=request.data)
+        print("Serializer data:", serializer.initial_data)
+        
         if serializer.is_valid():
+            print("Serializer is valid")
             # Handle password hashing
             user = serializer.save()
-            user.set_password(request.data.get('password', ''))
-            user.save()
+            password = request.data.get('password', '')
+            if password:
+                user.set_password(password)
+                user.save()
+                print("Password set and user saved")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print("Serializer errors:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)

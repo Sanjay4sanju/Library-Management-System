@@ -188,9 +188,9 @@ const Home = () => {
             variant="contained" 
             size="large" 
             startIcon={<PhoneIcon />}
-            href="tel:+1234567890"
+            href="tel:+91 88975 56156"
           >
-            Call Support: +1 (234) 567-890
+            Call Support: +91 88975 56156
           </Button>
         </Box>
 

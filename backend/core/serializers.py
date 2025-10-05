@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import User, Category, Book, BorrowRecord, Reservation, Fine, Notification
 from core.models import BorrowRecord 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=False)
+    password = serializers.CharField(write_only=True, required=False, allow_blank=True)
     
     class Meta:
         model = User
@@ -17,25 +17,46 @@ class UserSerializer(serializers.ModelSerializer):
             'date_of_birth', 'date_joined', 'is_staff', 'is_superuser', 'password'
         ]
         read_only_fields = ['date_joined', 'is_staff', 'is_superuser']
+        extra_kwargs = {
+            'username': {'required': True},
+            'email': {'required': True},
+            'user_type': {'required': True}
+        }
     
     def create(self, validated_data):
-        # Create user with hashed password
+        print("=== SERIALIZER CREATE DEBUG ===")
+        print("Validated data:", validated_data)
+        
+        # Handle password separately
         password = validated_data.pop('password', None)
-        user = super().create(validated_data)
+        user = User.objects.create(**validated_data)
+        
+        # Set password if provided, otherwise set default
         if password:
             user.set_password(password)
-            user.save()
+        else:
+            user.set_password('defaultpassword123')  # Set a default password
+        
+        user.save()
+        print("User created successfully:", user.username)
         return user
     
     def update(self, instance, validated_data):
-        # Handle password hashing on update
+        print("=== SERIALIZER UPDATE DEBUG ===")
+        print("Validated data:", validated_data)
+        
         password = validated_data.pop('password', None)
-        user = super().update(instance, validated_data)
+        
+        # Update all fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        # Update password if provided
         if password:
-            user.set_password(password)
-            user.save()
-        return user
-
+            instance.set_password(password)
+        
+        instance.save()
+        return instance
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
