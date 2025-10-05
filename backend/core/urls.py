@@ -20,6 +20,8 @@ urlpatterns = [
     path('reading-history/', views.reading_history, name='reading-history'),
     path('personal-stats/', views.personal_stats, name='personal-stats'),
     path('dashboard-stats/', views.dashboard_stats, name='dashboard-stats'),
+    path('impose-overdue-fines/', views.impose_overdue_fines, name='impose-overdue-fines'),
+    path('overdue-books/', views.get_overdue_books, name='overdue-books'),
     
     # Add users endpoints
 ]

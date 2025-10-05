@@ -125,11 +125,32 @@ class BorrowRecord(models.Model):
         super().save(*args, **kwargs)
     
     def calculate_fine(self):
-        if not self.is_returned and self.due_date < timezone.now().date():
-            days_overdue = (timezone.now().date() - self.due_date).days
-            self.fine_amount = days_overdue * 1.00  # $1 per day fine
-            self.save()
-        return self.fine_amount
+     "Calculate and impose fine for overdue books"""
+     if not self.is_returned and self.due_date < timezone.now().date():
+        days_overdue = (timezone.now().date() - self.due_date).days
+        fine_amount = days_overdue * 1.00  # $1 per day fine
+        
+        # Update the borrow record fine amount
+        self.fine_amount = fine_amount
+        self.save()
+        
+        # Create or update the Fine record
+        fine, created = Fine.objects.get_or_create(
+            borrow_record=self,
+            defaults={
+                'user': self.borrower,
+                'amount': fine_amount,
+                'is_paid': False
+            }
+        )
+        
+        if not created and fine.amount != fine_amount:
+            fine.amount = fine_amount
+            fine.is_paid = False  # Reset paid status if amount changed
+            fine.save()
+        
+        return fine_amount
+     return 0.00
     
     @property
     def is_overdue(self):
@@ -172,7 +193,13 @@ class Reservation(models.Model):
 
 class Fine(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fines')
-    borrow_record = models.OneToOneField(BorrowRecord, on_delete=models.CASCADE, related_name='fine', null=True, blank=True)
+    borrow_record = models.OneToOneField(
+        'BorrowRecord', 
+        on_delete=models.CASCADE, 
+        related_name='fine_record',
+        null=True, 
+        blank=True
+    )
     amount = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     is_paid = models.BooleanField(default=False)
     paid_date = models.DateTimeField(null=True, blank=True)

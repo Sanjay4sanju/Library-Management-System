@@ -466,43 +466,40 @@ class BorrowRecordViewSet(viewsets.ModelViewSet):
         
     @action(detail=True, methods=['post'])
     def return_book(self, request, pk=None):
-        borrow_record = self.get_object()
-        user = request.user
-        
-        # Check permissions
-        if user.user_type not in ['librarian', 'admin'] and borrow_record.borrower != user:
-            return Response(
-                {'error': 'You can only return your own books.'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        
-        if borrow_record.is_returned:
-            return Response(
-                {'error': 'This book has already been returned.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        # Update borrow record
-        borrow_record.is_returned = True
-        borrow_record.return_date = timezone.now().date()
-        borrow_record.calculate_fine()  # Calculate any fines
-        borrow_record.save()
-        
-        # Update book availability
-        book = borrow_record.book
-        book.available_copies += 1
-        book.save()
-        
-        # Create fine record if applicable
-        if borrow_record.fine_amount > 0:
-            Fine.objects.create(
-                user=borrow_record.borrower,
-                borrow_record=borrow_record,
-                amount=borrow_record.fine_amount
-            )
-        
-        serializer = self.get_serializer(borrow_record)
-        return Response(serializer.data)
+      borrow_record = self.get_object()
+      user = request.user
+    
+    # Check permissions
+      if user.user_type not in ['librarian', 'admin'] and borrow_record.borrower != user:
+        return Response(
+            {'error': 'You can only return your own books.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
+    
+      if borrow_record.is_returned:
+        return Response(
+            {'error': 'This book has already been returned.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Calculate fine before returning
+      borrow_record.calculate_fine()
+    
+    # Update borrow record
+      borrow_record.is_returned = True
+      borrow_record.return_date = timezone.now().date()
+      borrow_record.save()
+    
+    # Update book availability
+      book = borrow_record.book
+      book.available_copies += 1
+      book.save()
+    
+    # Fine record is already created by calculate_fine() if applicable
+    
+      serializer = self.get_serializer(borrow_record)
+      return Response(serializer.data)
+
     
     @action(detail=False, methods=['get'])
     def overdue(self, request):
@@ -841,3 +838,69 @@ def personal_stats(request):
     }
     
     return Response(stats)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated, IsLibrarian])
+def impose_overdue_fines(request):
+    """Manually trigger overdue fines check"""
+    try:
+        from django.core.management import call_command
+        from io import StringIO
+        import sys
+        
+        # Capture command output
+        old_stdout = sys.stdout
+        sys.stdout = StringIO()
+        
+        call_command('check_overdue_fines')
+        
+        output = sys.stdout.getvalue()
+        sys.stdout = old_stdout
+        
+        return Response({
+            'message': 'Overdue fines check completed',
+            'output': output
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response(
+            {'error': f'Error checking overdue fines: {str(e)}'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_overdue_books(request):
+    """Get list of overdue books with fines"""
+    user = request.user
+    
+    if user.user_type in ['librarian', 'admin']:
+        overdue_records = BorrowRecord.objects.filter(
+            is_returned=False,
+            due_date__lt=timezone.now().date()
+        ).select_related('book', 'borrower')
+    else:
+        overdue_records = BorrowRecord.objects.filter(
+            borrower=user,
+            is_returned=False,
+            due_date__lt=timezone.now().date()
+        ).select_related('book')
+    
+    result = []
+    for record in overdue_records:
+        # Ensure fine is calculated
+        record.calculate_fine()
+        
+        result.append({
+            'id': record.id,
+            'book_title': record.book.title,
+            'book_author': record.book.author,
+            'borrower_name': record.borrower.username,
+            'borrow_date': record.borrow_date,
+            'due_date': record.due_date,
+            'days_overdue': (timezone.now().date() - record.due_date).days,
+            'fine_amount': float(record.fine_amount),
+            'is_returned': record.is_returned
+        })
+    
+    return Response(result)
