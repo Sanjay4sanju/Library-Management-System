@@ -4118,3 +4118,31 @@ Not Found: /api/books/4/borrow/
 Bad Request: /api/books/2/reserve/
 C:\Users\johnii\Downloads\library-management-system\backend\core\views.py changed, reloading.
 Watching for file changes with StatReloader
+Bad Request: /api/books/4/borrow/
+Bad Request: /api/books/2/borrow/
+Bad Request: /api/auth/logout/
+Forbidden: /api/users/
+Forbidden: /api/users/
+Forbidden: /api/users/
+Forbidden: /api/users/
+Forbidden: /api/users/
+Bad Request: /api/auth/logout/
+Bad Request: /api/users/
+Bad Request: /api/users/
+Unauthorized: /api/borrow-records/
+Unauthorized: /api/reading-history/
+Unauthorized: /api/personal-stats/
+Unauthorized: /api/reservations/
+Unauthorized: /api/books/
+Unauthorized: /api/fines/
+Unauthorized: /api/borrow-records/
+Unauthorized: /api/reading-history/
+Unauthorized: /api/personal-stats/
+Unauthorized: /api/reservations/
+Unauthorized: /api/books/
+Unauthorized: /api/fines/
+Bad Request: /api/auth/logout/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
