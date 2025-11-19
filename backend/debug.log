@@ -4856,3 +4856,220 @@ Traceback (most recent call last):
 AttributeError: 'Fine' object has no attribute 'reason'
 C:\Users\johnii\Downloads\library-management-system\backend\core\models.py changed, reloading.
 Watching for file changes with StatReloader
+Bad Request: /api/users/
+Not Found: /favicon.ico
+Unauthorized: /api/dashboard-stats/
+Unauthorized: /api/borrow-records/
+Unauthorized: /api/books/
+Unauthorized: /api/reservations/
+Unauthorized: /api/categories/
+Unauthorized: /api/fines/
+Unauthorized: /api/borrow-records/
+Unauthorized: /api/users/
+Unauthorized: /api/dashboard-stats/
+Unauthorized: /api/books/
+Unauthorized: /api/reservations/
+Unauthorized: /api/categories/
+Unauthorized: /api/fines/
+Unauthorized: /api/users/
+Watching for file changes with StatReloader
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Not Found: /api/auth/register/
+
+Not Found: /api/auth/register/
+
+Not Found: /api/auth/register/
+
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1.jpg
+Not Found: /api/auth/register/
+
+Not Found: /api/auth/register/
+
+Not Found: /api/auth/register/
+
+Not Found: /auth/register/
+
+C:\Users\johnii\Downloads\library-management-system\backend\core\urls.py changed, reloading.
+C:\Users\johnii\Downloads\library-management-system\backend\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1.jpg
+Not Found: /api/auth/register/
+
+
+Not Found: /api/auth/register/
+
+
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+C:\Users\johnii\Downloads\library-management-system\backend\core\urls.py changed, reloading.
+C:\Users\johnii\Downloads\library-management-system\backend\core\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /api/auth/register/
+
+
+Watching for file changes with StatReloader
+Method Not Allowed: /api/auth/register/
+Not Found: /api/auth/register/
+
+
+Not Found: /api/auth/register/
+
+
+Not Found: /api/auth/register/
+
+
+Not Found: /api/auth/register/
+
+
+Not Found: /api/auth/register/
+
+
+Invalid HTTP_HOST header: 'kubernetes.docker.internal:8000'. You may need to add 'kubernetes.docker.internal' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'kubernetes.docker.internal:8000'. You may need to add 'kubernetes.docker.internal' to ALLOWED_HOSTS.
+Bad Request: /api/auth/register/
+
+
+Invalid HTTP_HOST header: 'kubernetes.docker.internal:8000'. You may need to add 'kubernetes.docker.internal' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\johnii\Downloads\library-management-system\backend\venv\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'kubernetes.docker.internal:8000'. You may need to add 'kubernetes.docker.internal' to ALLOWED_HOSTS.
+Bad Request: /api/auth/register/
+
+
+Method Not Allowed: /api/auth/register/
+Method Not Allowed: /api/auth/register/
+Method Not Allowed: /api/auth/register/
+Method Not Allowed: /api/auth/login/
+Bad Request: /api/auth/login/
+Bad Request: /api/auth/login/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+C:\Users\johnii\Downloads\library-management-system\backend\core\views.py changed, reloading.
+C:\Users\johnii\Downloads\library-management-system\backend\core\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/auth/profile/
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Bad Request: /api/auth/login/
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Bad Request: /api/books/8/reserve/
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Method Not Allowed: /api/auth/login/
+Method Not Allowed: /api/auth/login/
+Method Not Allowed: /api/auth/login/
+Method Not Allowed: /api/auth/login/
+Bad Request: /api/auth/login/
+Bad Request: /api/auth/login/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/me/
+Unauthorized: /api/users/
+Unauthorized: /api/
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Unauthorized: /api/
+Unauthorized: /api/users/me/
+Method Not Allowed: /api/auth/login/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/auth/logout/
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Not Found: /media/book_covers/WhatsApp_Image_2025-10-02_at_19.28.52_b74757c1_IwkcNTF.jpg
+Unauthorized: /api/reservations/
+Unauthorized: /api/reservations/
+Unauthorized: /api/users/me/
+Unauthorized: /api/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Bad Request: /api/auth/login/
+Bad Request: /api/auth/login/
+Watching for file changes with StatReloader
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/auth/profile/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+Unauthorized: /api/books/
+Unauthorized: /api/books/
+Unauthorized: /api/users/
+C:\Users\johnii\Downloads\library-management-system\backend\lms_api\settings.py changed, reloading.

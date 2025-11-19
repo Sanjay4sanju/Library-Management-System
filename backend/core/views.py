@@ -537,6 +537,12 @@ class ReservationViewSet(viewsets.ModelViewSet):
             return [permissions.IsAuthenticated(), IsLibrarian()]
         return super().get_permissions()
     
+    def perform_create(self, serializer):
+        """
+        Automatically set the logged-in user as the one making the reservation.
+        """
+        serializer.save(user=self.request.user)  # 👈 add this line
+
     @action(detail=True, methods=['post'])
     def cancel(self, request, pk=None):
         reservation = self.get_object()
@@ -546,7 +552,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         if user.user_type not in ['librarian', 'admin'] and reservation.user != user:
             return Response(
                 {'error': 'You can only cancel your own reservations.'},
-                status=status.HTTP_403_FORBidDEN
+                status=status.HTTP_403_FORBIDDEN
             )
         
         if reservation.status != 'pending':
